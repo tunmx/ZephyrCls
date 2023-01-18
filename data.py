@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-
 from data.dataset.textline_dataset import TextLinesDataset
 from torch.utils.data.dataloader import DataLoader
 
@@ -15,3 +14,4 @@ for idx in range(batch_size):
     cv2.imshow("w", x[idx].numpy().astype(np.uint8))
     print(y[idx])
     cv2.waitKey(0)
+
