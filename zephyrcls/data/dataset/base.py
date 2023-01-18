@@ -2,15 +2,15 @@ from abc import ABCMeta, abstractmethod
 import cv2
 import numpy as np
 from torch.utils.data import Dataset
-from data.transform import Pipeline
+from zephyrcls.data.transform import Pipeline
 import torch
 
-def _data_to_tensor(image: np.ndarray, label):
+def _data_to_tensor(image: np.ndarray):
     height, width, _ = image.shape
     image = image / 255.0
     image = image.transpose(2, 0, 1)
     # print(image.shape)
-    return torch.tensor(image.astype(np.float32)),  torch.tensor(label)
+    return torch.tensor(image.astype(np.float32))
 
 
 class ClassificationDatasetBase(Dataset, metaclass=ABCMeta):
@@ -46,9 +46,8 @@ class ClassificationDatasetBase(Dataset, metaclass=ABCMeta):
         image_path = data['image']
         label = data['label']
         x = cv2.imdecode(np.fromfile(image_path, dtype=np.uint8), cv2.IMREAD_COLOR)
-        if mode == 'train':
-            x = self.transform(x, mode=mode)
+        x = self.transform(x, mode=mode)
         if not self.is_show:
-            x = _data_to_tensor(x, label)
+            x = _data_to_tensor(x)
 
-        return x, label
+        return x,  torch.tensor(label)

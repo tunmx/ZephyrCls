@@ -12,7 +12,7 @@ class Pipeline(object):
                  flip_lr=0.2,
                  gaussian_blur=(0, 1.0),
                  multiply=(0.25, 1.55),
-                 contrast_normalization=(0.8, 1.2),
+                 contrast_normalization=(0.9, 1.2),
                  gamma_contrast=(0.9, 1.2),
                  scale_x=(1, 1.),
                  scale_y=(1, 1.),

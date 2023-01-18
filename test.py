@@ -1,5 +1,5 @@
 import cv2
-from data.transform import Pipeline
+from zephyrcls.data import Pipeline
 
 image = cv2.imread("/Users/tunm/Downloads/sn.jpeg")
 pipeline = Pipeline()
