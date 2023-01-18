@@ -3,13 +3,13 @@
 #!/usr/bin/env python
 from setuptools import find_packages, setup
 
-__version__ = "0.0.2"
+__version__ = "0.0.1"
 
 if __name__ == "__main__":
     setup(
         name="zephyrcls",
         version=__version__,
-        description="A simple classify for image",
+        description="A simple image classification tool based on pytorch.",
         url="https://github.com/tunmx/ZephyrCls.git",
         author="Tunm",
         author_email="tunmxy@163.com",
