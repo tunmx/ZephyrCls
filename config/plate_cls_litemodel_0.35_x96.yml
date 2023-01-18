@@ -13,15 +13,15 @@ data:
   train:
     name: TextLinesDataset
     option:
-      data_folder: /Users/tunm/datasets/ClsPadAlign/batch1
-      labels_path: /Users/tunm/datasets/ClsPadAlign/batch1/train.txt
+      data_folder: ./data
+      labels_path: ./data/train.txt
       mode: train
     batch_size: 128
   val:
     name: TextLinesDataset
     option:
-      data_folder: /Users/tunm/datasets/ClsPadAlign/batch1
-      labels_path: /Users/tunm/datasets/ClsPadAlign/batch1/val.txt
+      data_folder: ./data
+      labels_path: ./data/val.txt
       mode: val
     batch_size: 128
   pipeline:
