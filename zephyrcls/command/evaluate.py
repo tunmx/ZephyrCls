@@ -4,7 +4,7 @@ import tqdm
 from loguru import logger
 from zephyrcls.data import get_dataset
 from zephyrcls.model import build_model
-from zephyrcls.data.transform import Pipeline
+from zephyrcls.data.transform import ImagePipeline
 from zephyrcls.model.loss import get_loss_function
 from zephyrcls.utils.cfg_tools import load_cfg
 from torch.utils.data import DataLoader
@@ -42,7 +42,7 @@ def evaluate(config_path, model_path, data):
     if data:
         data_cfg.val.option.img_path = data
     # build val dataset
-    transform = Pipeline(**data_cfg.pipeline)
+    transform = ImagePipeline(**data_cfg.pipeline)
     val_dataset = get_dataset(data_cfg.val.name, transform=transform, **data_cfg.val.option)
     val_batch_size = data_cfg.val.batch_size
     val_dataloader = DataLoader(dataset=val_dataset, batch_size=val_batch_size, shuffle=True,

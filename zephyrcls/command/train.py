@@ -4,7 +4,7 @@ import click
 from loguru import logger
 from zephyrcls.data import get_dataset
 from zephyrcls.model import build_model
-from zephyrcls.data.transform import Pipeline
+from zephyrcls.data.transform import ImagePipeline
 from zephyrcls.trainer.task import TrainTask
 from torch.utils.data import DataLoader
 from zephyrcls.utils.cfg_tools import load_cfg
@@ -22,7 +22,7 @@ def train(config_path, ):
     net = build_model(model_cfg.name, **model_cfg.option)
     # build training dataset
     data_cfg = cfg.data
-    transform = Pipeline(**data_cfg.pipeline)
+    transform = ImagePipeline(**data_cfg.pipeline)
     train_dataset = get_dataset(data_cfg.train.name, transform=transform, **data_cfg.train.option)
     train_batch_size = data_cfg.train.batch_size
     # build val dataset

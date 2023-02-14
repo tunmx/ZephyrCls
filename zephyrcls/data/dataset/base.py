@@ -2,7 +2,7 @@ from abc import ABCMeta, abstractmethod
 import cv2
 import numpy as np
 from torch.utils.data import Dataset
-from zephyrcls.data.transform import Pipeline
+from zephyrcls.data.transform import ImagePipeline
 import torch
 
 def _data_to_tensor(image: np.ndarray):
@@ -12,19 +12,35 @@ def _data_to_tensor(image: np.ndarray):
     # print(image.shape)
     return torch.tensor(image.astype(np.float32))
 
+def _image_load(path:str) -> np.ndarray:
+    x = cv2.imdecode(np.fromfile(path, dtype=np.uint8), cv2.IMREAD_COLOR)
+
+    return x
+
+def _audio_load(path:str, sr=16000) -> np.ndarray:
+    #TODO
+    return np.array([])
+
+
+_data_load_mode = dict(
+    image=_image_load,
+    audio=_audio_load,
+)
+
 
 class ClassificationDatasetBase(Dataset, metaclass=ABCMeta):
 
-    def __init__(self, data_folder, labels_path=None, mode='train', transform=None, is_show=False):
+    def __init__(self, data_folder, labels_path=None, mode='train', transform=None, is_show=False, m_type='image'):
         self.data_folder = data_folder
         self.is_show = is_show
+        self.m_type = m_type
         if labels_path:
             self.labels_path = labels_path
         self.mode = mode
         if transform:
             self.transform = transform
         else:
-            self.transform = Pipeline()
+            self.transform = ImagePipeline()
         self.data_list = self._load_data(self.data_folder, self.labels_path)
 
     def __len__(self):
@@ -45,7 +61,8 @@ class ClassificationDatasetBase(Dataset, metaclass=ABCMeta):
         data = self.data_list[idx]
         image_path = data['image']
         label = data['label']
-        x = cv2.imdecode(np.fromfile(image_path, dtype=np.uint8), cv2.IMREAD_COLOR)
+        load_method = _data_load_mode[self.m_type]
+        x = load_method(np.fromfile(image_path, dtype=np.uint8), cv2.IMREAD_COLOR)
         x = self.transform(x, mode=mode)
         if not self.is_show:
             x = _data_to_tensor(x)

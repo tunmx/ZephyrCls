@@ -1,28 +1,38 @@
 import numpy as np
-from imgaug import augmenters as iaa
 
 
 class Pipeline(object):
 
-    def __init__(self,
-                 image_size=(96, 96),
-                 sometimes_rate=0.5,
-                 crop_percent=(0, 0.1),
-                 flip_lr=0.2,
-                 gaussian_blur=(0, 1.0),
-                 multiply=(0.25, 1.55),
-                 contrast_normalization=(0.9, 1.2),
-                 gamma_contrast=(0.9, 1.2),
-                 scale_x=(1, 1.),
-                 scale_y=(1, 1.),
-                 translate_percent_x=(-0.1, 0.1),
-                 translate_percent_y=(-0.1, 0.1),
-                 rotate=(-10, 10),
-                 shear=(-5, 5),
-                 order=(0, 1),
-                 cval=0,
+    def __init__(self):
+        pass
+
+    def _transform_one(self, image: np.ndarray, mode='train') -> np.ndarray:
+        pass
+
+    def __call__(self, image: np.ndarray, mode='train', *args, **kwargs) -> np.ndarray:
+        return self._transform_one(image, mode=mode)
+
+
+class AudioPipeline(Pipeline):
+    def __init__(self):
+        # TODO
+        super().__init__()
+
+    def _transform_one(self, image: np.ndarray, mode='train') -> np.ndarray:
+        # TODO
+        return super()._transform_one(image, mode)
+
+
+class ImagePipeline(Pipeline):
+
+    def __init__(self, image_size=(96, 96), sometimes_rate=0.5, crop_percent=(0, 0.1), flip_lr=0.2,
+                 gaussian_blur=(0, 1.0), multiply=(0.25, 1.55), contrast_normalization=(0.9, 1.2),
+                 gamma_contrast=(0.9, 1.2), scale_x=(1, 1.), scale_y=(1, 1.), translate_percent_x=(-0.1, 0.1),
+                 translate_percent_y=(-0.1, 0.1), rotate=(-10, 10), shear=(-5, 5), order=(0, 1), cval=0,
                  mode="constant"):
+        from imgaug import augmenters as iaa
         # 定义一个lambda表达式，以p=0.5的概率去执行sometimes传递的图像增强
+        super().__init__()
         sometimes = lambda aug: iaa.Sometimes(sometimes_rate, aug)
 
         self.val_seq = iaa.Sequential([

@@ -10,6 +10,7 @@ model:
     name: ce_loss
   weight: null
 data:
+  type: image   # or audio
   train:
     name: TextLinesDataset
     option:

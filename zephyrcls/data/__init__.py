@@ -1,6 +1,6 @@
 from .dataset import TextLinesDataset
 from .dataset.base import ClassificationDatasetBase
-from .transform import Pipeline
+from .transform import ImagePipeline
 
 _dataset_map_ = dict(TextLinesDataset=TextLinesDataset, )
 
