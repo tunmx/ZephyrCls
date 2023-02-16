@@ -1,4 +1,8 @@
 import numpy as np
+from .tools.audio_load import get_mfcc_feature, feature_fix
+import os
+
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 
 class Pipeline(object):
@@ -9,18 +13,39 @@ class Pipeline(object):
     def _transform_one(self, image: np.ndarray, mode='train') -> np.ndarray:
         pass
 
-    def __call__(self, image: np.ndarray, mode='train', *args, **kwargs) -> np.ndarray:
-        return self._transform_one(image, mode=mode)
+    def __call__(self, data: np.ndarray, mode='train', *args, **kwargs) -> np.ndarray:
+        return self._transform_one(data, mode=mode)
 
 
 class AudioPipeline(Pipeline):
-    def __init__(self):
-        # TODO
+    def __init__(self, signal_size: int = 16000, sr: int = 16000, speed_perturb: tuple = None,
+                 volume_perturb: tuple = None, sometimes_rate=0.5):
         super().__init__()
+        from .tools.audio_augmented import SpeedPerturbAugmentor, VolumePerturbAugmentor
+        self.signal_size = signal_size
+        self.sr = sr
+        self.augment_pipeline = list()
+        if speed_perturb:
+            self.speed_augmentor = SpeedPerturbAugmentor(speed_perturb[0], speed_perturb[1], prob=sometimes_rate)
+            self.augment_pipeline.append(self.speed_augmentor)
+        if volume_perturb:
+            self.volume_augmentor = VolumePerturbAugmentor(volume_perturb[0], volume_perturb[1],
+                                                           prob=sometimes_rate)
+            self.augment_pipeline.append(self.volume_augmentor)
 
-    def _transform_one(self, image: np.ndarray, mode='train') -> np.ndarray:
-        # TODO
-        return super()._transform_one(image, mode)
+    def _transform_one(self, data: np.ndarray, mode='train') -> np.ndarray:
+        assert len(data.shape) < 3
+        if mode == 'train':
+            for aug in self.augment_pipeline:
+                data = aug(data[0])
+                data = np.asarray([data])
+
+        data_input = get_mfcc_feature(data, samplerate=self.sr)
+        data_input = np.array(data_input, dtype=np.float)
+        data_input = np.reshape(data_input, (data_input.shape[0], data_input.shape[1], 1))
+        data_input = feature_fix(data_input)
+        data_input = data_input.transpose(2, 0, 1)
+        return data_input
 
 
 class ImagePipeline(Pipeline):
@@ -67,11 +92,8 @@ class ImagePipeline(Pipeline):
 
         self.seq_map = dict(train=self.train_seq, val=self.val_seq)
 
-    def _transform_one(self, image: np.ndarray, mode='train') -> np.ndarray:
+    def _transform_one(self, data: np.ndarray, mode='train') -> np.ndarray:
         aug_det = self.seq_map[mode].to_deterministic()
-        img_aug = aug_det.augment_image(image)
+        img_aug = aug_det.augment_image(data)
 
         return img_aug
-
-    def __call__(self, image: np.ndarray, mode='train', *args, **kwargs) -> np.ndarray:
-        return self._transform_one(image, mode=mode)

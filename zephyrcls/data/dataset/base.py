@@ -3,6 +3,8 @@ import cv2
 import numpy as np
 from torch.utils.data import Dataset
 from zephyrcls.data.transform import ImagePipeline
+from zephyrcls.data.transform import AudioPipeline
+from zephyrcls.data.tools.audio_load import read_wav_data
 import torch
 
 def _data_to_tensor(image: np.ndarray):
@@ -18,8 +20,9 @@ def _image_load(path:str) -> np.ndarray:
     return x
 
 def _audio_load(path:str, sr=16000) -> np.ndarray:
-    #TODO
-    return np.array([])
+    signal, framerate = read_wav_data(path)
+    assert sr == framerate
+    return signal
 
 
 _data_load_mode = dict(
@@ -62,9 +65,12 @@ class ClassificationDatasetBase(Dataset, metaclass=ABCMeta):
         image_path = data['image']
         label = data['label']
         load_method = _data_load_mode[self.m_type]
-        x = load_method(np.fromfile(image_path, dtype=np.uint8), cv2.IMREAD_COLOR)
+        x = load_method(image_path)
         x = self.transform(x, mode=mode)
-        if not self.is_show:
-            x = _data_to_tensor(x)
+        if self.m_type == "image":
+            if not self.is_show:
+                x = _data_to_tensor(x)
+        else:
+            x = torch.tensor(x)
 
         return x,  torch.tensor(label)

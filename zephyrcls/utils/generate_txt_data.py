@@ -1,7 +1,8 @@
 import os
 import click
 
-classify = ("blue", "green", "yellow",)
+# classify = ("blue", "green", "yellow",)
+classify = ("0", "1",)
 
 
 
@@ -18,7 +19,7 @@ def generate_txt(data, train_rate):
         label_idx = classify.index(item)
         print(images_dirs, label_idx)
         data_list = [os.path.join(item, img_name) for img_name in os.listdir(images_dirs) if
-                     img_name.split('.')[-1].lower() in ['jpg', 'png', 'jpeg']]
+                     img_name.split('.')[-1].lower() in ['jpg', 'png', 'jpeg', 'wav']]
         total = len(data_list)
         train_num = int(total * train_rate)
         tmp_train_data = data_list[:train_num]
