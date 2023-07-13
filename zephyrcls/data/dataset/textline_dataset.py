@@ -11,7 +11,7 @@ class TextLinesDataset(ClassificationDatasetBase):
     def _load_data(self, data_folder: str, labels_path: str) -> list:
         results = list()
         pairs_list = self._load_label(labels_path)
-        logger.info("Data Loading...")
+        logger.info(f"[{self.mode}]Data Loading...")
         for idx, (path, label) in enumerate(tqdm.tqdm(pairs_list)):
             full_path = os.path.join(self.data_folder, path)
             dic = dict(image=full_path, label=label)

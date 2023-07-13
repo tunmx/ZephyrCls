@@ -1,13 +1,13 @@
 import os
 import click
 
-classify = ("blue", "green", "yellow",)
+classify = ("0", "1", "2",)
 
 
 
 @click.command(help='Generate data.')
 @click.option('-data', '--data', type=click.Path(exists=True))
-@click.option('-train_rate', '--train_rate', type=float, default=0.95)
+@click.option('-train_rate', '--train_rate', type=float, default=0.92)
 def generate_txt(data, train_rate):
     dirs = [item for item in os.listdir(data) if os.path.isdir(os.path.join(data, item))]
     train_data = list()

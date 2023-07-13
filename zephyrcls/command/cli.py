@@ -2,6 +2,7 @@ from zephyrcls.command.aliased_group import AliasedGroup
 from zephyrcls.command.train import train
 from zephyrcls.command.evaluate import evaluate
 from zephyrcls.command.export import export
+from zephyrcls.command.visualized_data import visualized
 import click
 
 
@@ -18,6 +19,7 @@ def cli():
 cli.add_command(train)
 cli.add_command(evaluate)
 cli.add_command(export)
+cli.add_command(visualized)
 
 if __name__ == '__main__':
     cli()
