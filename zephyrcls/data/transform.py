@@ -1,3 +1,4 @@
+import cv2
 import numpy as np
 from imgaug import augmenters as iaa
 
@@ -21,12 +22,23 @@ class Pipeline(object):
                  shear=(-5, 5),
                  order=(0, 1),
                  cval=0,
-                 mode="constant"):
+                 mode="constant",
+                 padding_mode=False):
+
+        if padding_mode:
+            resize_aug = iaa.Sequential([
+                iaa.Scale({"height": image_size[0], "width": "keep-aspect-ratio"}),
+                iaa.PadToSquare(pad_mode="constant", pad_cval=0)
+            ])
+        else:
+            resize_aug = iaa.Resize(image_size)
+
         # 定义一个lambda表达式，以p=0.5的概率去执行sometimes传递的图像增强
         sometimes = lambda aug: iaa.Sometimes(sometimes_rate, aug)
 
         self.val_seq = iaa.Sequential([
-            iaa.Resize(image_size, ),
+            # iaa.Resize(image_size, ),
+            resize_aug,
         ])
 
         self.train_seq = iaa.Sequential([  # 建立一个名为seq的实例，定义增强方法，用于增强
@@ -52,7 +64,8 @@ class Pipeline(object):
                 mode=mode  # 定义填充图像外区域的方法
             )),
 
-            iaa.Resize(image_size, ),
+            # iaa.Resize(image_size, ),
+            resize_aug,
         ])
 
         self.seq_map = dict(train=self.train_seq, val=self.val_seq)
@@ -60,6 +73,9 @@ class Pipeline(object):
     def _transform_one(self, image: np.ndarray, mode='train') -> np.ndarray:
         aug_det = self.seq_map[mode].to_deterministic()
         img_aug = aug_det.augment_image(image)
+        print(img_aug.shape)
+        cv2.imshow("s", img_aug)
+        cv2.waitKey(0)
 
         return img_aug
 

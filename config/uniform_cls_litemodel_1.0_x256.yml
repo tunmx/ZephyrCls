@@ -1,0 +1,64 @@
+save_dir: workspace/uniform_cls_litemodel_1_0_x256_exp0
+model:
+  name: LiteModel
+  option:
+    class_num: 3
+    width_mult: 1.0
+    last_channel: 1280
+    pool_pad: 3
+  loss:
+    name: ce_loss
+  weight: null
+data:
+  train:
+    name: TextLinesDataset
+    option:
+      data_folder: ./data
+      labels_path: ./data/train.txt
+      mode: train
+    batch_size: 32
+  val:
+    name: TextLinesDataset
+    option:
+      data_folder: ./data
+      labels_path: ./data/val.txt
+      mode: val
+    batch_size: 32
+  pipeline:
+    image_size: [224, 224]
+    sometimes_rate: 0.5
+    crop_percent: [0, 0.1]
+    flip_lr: 0.2
+    gaussian_blur: [0, 1.0]
+    multiply: [0.8, 1.35]
+    contrast_normalization: [0.9, 1.1]
+    gamma_contrast: [0.95, 1.1]
+    scale_x: [1., 1.]
+    scale_y: [1., 1.]
+    translate_percent_x: [-0.1, 0.1]
+    translate_percent_y: [-0.1, 0.1]
+    rotate: [-10, 10]
+    shear: [-5, 5]
+    order: [0, 1]
+    cval: 0
+    mode: constant
+    padding_mode: True
+trainer:
+  worker_num: 4
+  epoch_num: 2000
+  optimizer:
+    name: SGD
+    lr: 0.01
+  schedule:
+    name: 'ReduceLROnPlateau'
+    mode: 'min'
+    factor: 0.5
+    patience: 5
+    verbose: True
+wandb:
+  team_name: tunm
+  project_name: UniformCls
+  experiment_name: exp
+  scenario_name: training
+  folder: log
+  key: 4b49a6b0286dcfb718a12360108a7a8578c3582c
