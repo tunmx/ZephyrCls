@@ -28,9 +28,9 @@ class LiteModel(nn.Module):
     def forward(self, x):
         x = self.backbone(x)
         x = self.pool1(x)
-        print('pool1:', x.shape)  # 应该是 [batch_size, 1280, 1, 1]
+        # print('pool1:', x.shape)  # 应该是 [batch_size, 1280, 1, 1]
         x = x.view(x.size(0), -1)
-        print('x.view:', x.shape)  # 应该是 [batch_size, 1280]
+        # print('x.view:', x.shape)  # 应该是 [batch_size, 1280]
         x = self.fc(x)
         x = self.prelu1(x)
         cls = self.cls_rec(x)
