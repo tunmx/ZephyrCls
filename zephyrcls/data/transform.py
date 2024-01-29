@@ -73,9 +73,9 @@ class Pipeline(object):
     def _transform_one(self, image: np.ndarray, mode='train') -> np.ndarray:
         aug_det = self.seq_map[mode].to_deterministic()
         img_aug = aug_det.augment_image(image)
-        print(img_aug.shape)
-        cv2.imshow("s", img_aug)
-        cv2.waitKey(0)
+        # print(img_aug.shape)
+        # cv2.imshow("s", img_aug)
+        # cv2.waitKey(0)
 
         return img_aug
 
