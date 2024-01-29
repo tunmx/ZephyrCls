@@ -6,7 +6,7 @@ from imgaug import augmenters as iaa
 class Pipeline(object):
 
     def __init__(self,
-                 image_size=(96, 96),
+                 image_size=(224, 224),
                  sometimes_rate=0.5,
                  crop_percent=(0, 0.1),
                  flip_lr=0.2,
@@ -28,7 +28,8 @@ class Pipeline(object):
         if padding_mode:
             resize_aug = iaa.Sequential([
                 iaa.Scale({"height": image_size[0], "width": "keep-aspect-ratio"}),
-                iaa.PadToSquare(pad_mode="constant", pad_cval=0)
+                iaa.PadToSquare(pad_mode="constant", pad_cval=0),
+                iaa.Resize(image_size)
             ])
         else:
             resize_aug = iaa.Resize(image_size)
