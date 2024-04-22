@@ -1,4 +1,4 @@
-save_dir: workspace/uniform_cls_litemodel_1_0_x256_exp0
+save_dir: workspace/uniform_cls_litemodel_1_0_x256_exp1
 model:
   name: LiteModel
   option:
@@ -16,14 +16,14 @@ data:
       data_folder: ./data
       labels_path: ./data/train.txt
       mode: train
-    batch_size: 32
+    batch_size: 64
   val:
     name: TextLinesDataset
     option:
       data_folder: ./data
       labels_path: ./data/val.txt
       mode: val
-    batch_size: 32
+    batch_size: 64
   pipeline:
     image_size: [224, 224]
     sometimes_rate: 0.5
