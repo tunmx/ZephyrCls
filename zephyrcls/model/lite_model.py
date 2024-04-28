@@ -17,7 +17,8 @@ class LiteModel(nn.Module):
     def __init__(self, class_num, width_mult=1., last_channel=1280, pool_pad=3):
         super().__init__()
         self.backbone = MobileNetV2(width_mult=width_mult, last_channel=last_channel)
-        self.pool1 = nn.AvgPool2d(pool_pad, stride=1)
+        # self.pool1 = nn.AvgPool2d(pool_pad, stride=1)
+        self.pool1 = nn.AdaptiveAvgPool2d(1)
         self.fc = nn.Linear(1280, 128)
         self.prelu1 = nn.PReLU()
         self.cls_rec = nn.Linear(128, class_num)
@@ -25,8 +26,11 @@ class LiteModel(nn.Module):
 
     def forward(self, x):
         x = self.backbone(x)
+        print(x.shape)
         x = self.pool1(x)
+        print(x.shape)
         x = x.view(x.size(0), -1)
+        print(x.shape)
         x = self.fc(x)
         x = self.prelu1(x)
         cls = self.cls_rec(x)
