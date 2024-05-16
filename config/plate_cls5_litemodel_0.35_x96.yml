@@ -1,4 +1,4 @@
-save_dir: workspace/plate_cls5_litemodel_0_35_x96_exp0
+save_dir: workspace/plate_cls5_litemodel_0_35_x96_exp1
 model:
   name: LiteModelSmall
   option:
