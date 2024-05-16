@@ -52,7 +52,7 @@ trainer:
     name: 'ReduceLROnPlateau'
     mode: 'min'
     factor: 0.5
-    patience: 5
+    patience: 30
     verbose: True
 wandb:
   team_name: tunm
