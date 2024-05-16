@@ -1,7 +1,7 @@
 import os
 import click
 
-classify = ("0", "1", "2",)
+classify = ("0_blue", "1_green", "2_yellow", "3_farm_double", "4_yellow_double")
 
 
 
