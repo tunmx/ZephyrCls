@@ -1,4 +1,4 @@
-save_dir: workspace/black_eyes_cls_litemodel_0_35_x96_exp0
+save_dir: workspace/black_eyes_cls_litemodel_0_35_x96_exp1
 model:
   name: LiteModel
   option:
@@ -52,7 +52,7 @@ trainer:
     name: 'ReduceLROnPlateau'
     mode: 'min'
     factor: 0.5
-    patience: 5
+    patience: 30
     verbose: True
 wandb:
   team_name: tunm
