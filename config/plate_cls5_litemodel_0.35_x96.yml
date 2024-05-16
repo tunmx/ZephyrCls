@@ -1,6 +1,6 @@
 save_dir: workspace/plate_cls5_litemodel_0_35_x96_exp0
 model:
-  name: LiteModel
+  name: LiteModelSmall
   option:
     class_num: 5
     width_mult: 0.35
