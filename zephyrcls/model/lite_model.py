@@ -26,11 +26,11 @@ class LiteModel(nn.Module):
 
     def forward(self, x):
         x = self.backbone(x)
-        print(x.shape)
+        # print(x.shape)
         x = self.pool1(x)
-        print(x.shape)
+        # print(x.shape)
         x = x.view(x.size(0), -1)
-        print(x.shape)
+        # print(x.shape)
         x = self.fc(x)
         x = self.prelu1(x)
         cls = self.cls_rec(x)
