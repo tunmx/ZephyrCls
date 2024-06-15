@@ -2,7 +2,7 @@ save_dir: workspace/color_cls_litemodel_1_0_x256_exp1
 model:
   name: LiteModel
   option:
-    class_num: 3
+    class_num: 10
     width_mult: 1.0
     last_channel: 1280
     pool_pad: 3
