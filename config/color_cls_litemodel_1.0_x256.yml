@@ -1,4 +1,4 @@
-save_dir: workspace/color_cls_litemodel_1_0_x256_exp1
+save_dir: workspace/color_cls_litemodel_1_0_x256_exp2
 model:
   name: LiteModel
   option:
