@@ -11,3 +11,4 @@ workspace
 outputs_dir
 data_dir/
 tmp/
+data/*

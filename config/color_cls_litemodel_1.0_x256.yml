@@ -27,7 +27,7 @@ data:
   pipeline:
     image_size: [192, 192]
     sometimes_rate: 0.5
-    crop_percent: [0, 0.5]
+    crop_percent: [0, 0.35]
     flip_lr: 0.5
     gaussian_blur: [0, 1.0]
     multiply: [0.8, 1.6]
