@@ -22,7 +22,7 @@ def visualized(config_path, data):
     # load data
     data_cfg = cfg.data
     if data:
-        data_cfg.train.option.img_path = data
+        data_cfg.train.option.data_folder = data
     # build train dataset
     transform = Pipeline(**data_cfg.pipeline)
     dataset = get_dataset(data_cfg.train.name, transform=transform, **data_cfg.train.option)

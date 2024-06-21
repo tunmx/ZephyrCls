@@ -1,7 +1,7 @@
 import os
 import click
 
-classify = ("0_blue", "1_green", "2_yellow", "3_farm_double", "4_yellow_double")
+classify = ("00_other", "01_black", "02_white", "03_red", "04_purple", "05_yellow", "06_gray", "07_blue", "08_green", "09_brown")
 
 
 
