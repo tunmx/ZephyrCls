@@ -2,7 +2,7 @@ save_dir: workspace/color_cls_r34_x192_exp0
 model:
   name: R34Model
   option:
-    class_num: 10
+    class_num: 11
   loss:
     name: ce_loss
   weight: null
