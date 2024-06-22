@@ -4,7 +4,6 @@ import torch.nn.functional as f
 from .backbone import MobileNetV2
 from .backbone import act_layers
 
-
 def conv_1x1_bn(inp, oup):
     return nn.Sequential(
         nn.Conv2d(inp, oup, 1, 1, 0, bias=False),
