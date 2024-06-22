@@ -3,7 +3,8 @@ import click
 
 classify = ("00_black",
             "01_grey",
-            "02_blue"  "03_green",
+            "02_blue",
+            "03_green",
             "04_white",
             "05_purple",
             "06_red",
