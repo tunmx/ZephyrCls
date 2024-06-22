@@ -1,4 +1,4 @@
-save_dir: workspace/color_cls_litemodel_1_0_x256_exp2
+save_dir: workspace/color_cls_litemodel_1_0_x256_exp3
 model:
   name: LiteModel
   option:
@@ -27,18 +27,18 @@ data:
   pipeline:
     image_size: [192, 192]
     sometimes_rate: 0.5
-    crop_percent: [0, 0.1]
-    flip_lr: 0.2
+    crop_percent: [0, 0.35]
+    flip_lr: 0.5
     gaussian_blur: [0, 1.0]
-    multiply: [0.8, 1.35]
-    contrast_normalization: [0.9, 1.1]
+    multiply: [0.8, 1.6]
+    contrast_normalization: [0.8, 1.2]
     gamma_contrast: [0.95, 1.1]
     scale_x: [1., 1.]
     scale_y: [1., 1.]
     translate_percent_x: [-0.1, 0.1]
     translate_percent_y: [-0.1, 0.1]
-    rotate: [-10, 10]
-    shear: [-5, 5]
+    rotate: [-30, 30]
+    shear: [-10, 10]
     order: [0, 1]
     cval: 0
     mode: constant

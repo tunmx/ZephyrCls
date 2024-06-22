@@ -80,8 +80,8 @@ class ONNXClassifier:
         return self.postprocess(ort_outs[0])
 
 if __name__ == '__main__':
-    cls = ONNXClassifier("workspace/color_cls_litemodel_1_0_x256_exp1/model.onnx", (3, 192, 192))
-    image = cv2.imread("/Users/tunm/datasets/train_data_01_cut_3cls/0/322010d2-5074-48df-9c12-6badefdeabed.jpg")
+    cls = ONNXClassifier("workspace/color_cls_litemodel_1_0_x256_exp2/model_2.onnx", (3, 192, 192))
+    image = cv2.imread("/Users/tunm/datasets/TestRecallColor/eval_out/08_green/pred_02_white_108_img.png")
 
     out = cls.predict(image)
     print(out)

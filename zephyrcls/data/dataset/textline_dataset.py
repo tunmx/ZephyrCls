@@ -1,9 +1,7 @@
 from loguru import logger
 import os
 import tqdm
-import json
 from .base import ClassificationDatasetBase
-import numpy as np
 
 
 class TextLinesDataset(ClassificationDatasetBase):
@@ -24,6 +22,7 @@ class TextLinesDataset(ClassificationDatasetBase):
         with open(path, 'r') as f:
             for line in f.readlines():
                 line = line.strip()
+                # print(line.split(" "))
                 image_path, label_index = line.split(" ")
                 pairs_list.append([image_path, int(label_index)])
 
