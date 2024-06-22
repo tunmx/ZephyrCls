@@ -1,7 +1,16 @@
 import os
 import click
 
-classify = ("00_other", "01_black", "02_white", "03_red", "04_purple", "05_yellow", "06_gray", "07_blue", "08_green", "09_brown")
+classify = ("00_black",
+            "01_grey",
+            "02_blue"  "03_green",
+            "04_white",
+            "05_purple",
+            "06_red",
+            "07_brown",
+            "08_yellow",
+            "09_pink",
+            "10_orange")
 
 
 
