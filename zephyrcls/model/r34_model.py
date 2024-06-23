@@ -12,7 +12,8 @@ class ResNet34Classifier(nn.Module):
         num_ftrs = self.resnet34.fc.in_features
         self.resnet34.fc = nn.Sequential(
             nn.Dropout(dropout_rate),
-            nn.Linear(num_ftrs, class_num)
+            nn.Linear(num_ftrs, class_num),
+            nn.Softmax(dim=1)  # 添加Softmax层
         )
 
     def forward(self, x):
@@ -37,3 +38,6 @@ if __name__ == "__main__":
 
     # 打印输出形状
     print(outputs.shape)
+
+    # 打印输出内容
+    print(outputs)
