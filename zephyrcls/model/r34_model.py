@@ -13,7 +13,6 @@ class ResNet34Classifier(nn.Module):
         self.resnet34.fc = nn.Sequential(
             nn.Dropout(dropout_rate),
             nn.Linear(num_ftrs, class_num),
-            nn.Softmax(dim=1)  # 添加Softmax层
         )
 
     def forward(self, x):

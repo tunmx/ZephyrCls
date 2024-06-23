@@ -3,6 +3,19 @@ import onnxruntime as ort
 import numpy as np
 import os
 
+classify = ("00_black",
+            "01_grey",
+            "02_blue",
+            "03_green",
+            "04_white",
+            "05_purple",
+            "06_red",
+            "07_brown",
+            "08_yellow",
+            "09_pink",
+            "10_orange")
+
+
 def padding(image, target_size=192):
     # 获取图像的高度和宽度
     h, w = image.shape[:2]
@@ -81,7 +94,8 @@ class ONNXClassifier:
 
 if __name__ == '__main__':
     cls = ONNXClassifier("workspace/color_cls_r34_x192_exp0/model.onnx", (3, 192, 192))
-    image = cv2.imread("/Users/tunm/datasets/train_data_01_cut_3cls/2/05e8d82b-9446-4c0b-bba9-cf513b89ec59.jpg")
+    image = cv2.imread("/Users/tunm/datasets/train_data_01_cut_3cls/0/f0d14d20-1ad0-482a-a177-d3a5f1a50699.jpg")
 
     out = cls.predict(image)
     print(out)
+    print(classify[out[0]])
